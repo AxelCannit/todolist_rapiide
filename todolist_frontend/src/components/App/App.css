@@ -1,0 +1,44 @@
+.App {
+  text-align: center;
+  color: white;
+}
+
+.app-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list-title {
+  margin: auto;
+  color:  #282c34;
+  background-color: white;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  border: white 2px solid;
+  width: 50%;
+}
+
+.new-list-form {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+label {
+  display: block;
+}
+
+input {
+  width: 30%;
+  height: 1.5rem;
+  margin: auto;
+  border: white 2px solid;
+}
+
+button {
+  width: 5%;
+  height: 2rem;
+  margin: auto;
+}

@@ -1,0 +1,17 @@
+.todo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .todo {
+    margin: auto;
+    color:  #282c34;
+    background-color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    border: white 2px solid;
+    width: 50%;
+  }
