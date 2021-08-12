@@ -74,7 +74,7 @@ function App() {
           <div className="app-list">
           {titleList.map((titleName) => {
              return(
-              <a className="list-title" key={titleName.todoList._id} href={`/liste-${titleName._id}`}>{titleName.todoList.title}</a>
+              <a className="list-title" key={titleName._id} href={`/liste-${titleName._id}`}>{titleName.title}</a>
             )
           })}
           </div>
@@ -85,7 +85,7 @@ function App() {
             path={`/liste-${titleName._id}`}
             exact
             >
-              <List title={titleName.todoList.title} value={titleName.todoList.todoValue} listId={titleName._id}/>
+              <List title={titleName.title} value={titleName.todoValue} listId={titleName._id}/>
             </Route>
           )
         })}

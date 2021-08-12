@@ -21,33 +21,27 @@ app.use((req, res, next) => {
 
 app.post('/api/list', (req, res, next) => {
   const todolist = new Todolist({
-    todoList:{
-      ...req.body
-      }
+    ...req.body,
   });
   todolist.save()
     .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 });
 
-app.put('/api/list/:id', (req, res, next) => {
-  titleId = req.body.titleId;
-  // const todolist = new Todolist({
-  //   todoList:{
-  //     taskList: {
-  //       ...req.body
-  //     }
-  //   }
-  // });
-  Todolist.updateOne({taskValue}, {$set: req.body.taskValue })
+app.put('api/list/:id', (req, res, next) => {
+  const titleId = req.body.titleId;
+  Todolist.findByIdAndUpdate({ _id: titleId }, {taskValue: req.body.taskValue} )
     .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 });
-// db.collection('userlist').update({ _id: ObjectId(userToUpdate)}, req.body, function (err, result) {
-//   res.send(
-//     (err === null) ? {msg: ''} : {msg: err}
-// );
-// });
+// Todolist.findById(({ _id: titleId }, (err, Todolist) => {
+//   if(err){ res.send(err)};
+//   Object.assign(Todolist, req.body).save((err, Todolist) => {
+//     if(err) {res.send(err)};
+//     res.json({ message: "task updated!", Todolist});
+//   });
+// }))
+
 
 app.use('/api/list', (req, res, next) => {
   Todolist.find()

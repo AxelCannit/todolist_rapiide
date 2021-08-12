@@ -29,7 +29,7 @@ function List({title, value, listId}) {
 
   const sendTask = (taskList) => {
     console.log(taskList);
-    axios.post( apiUrl, taskList)
+    axios.put( apiUrl, taskList)
     .then()
     .catch((error) => {
       console.log(error.response);
