@@ -23,13 +23,13 @@ function List({title, value, listId}) {
   const taskData = (event) => {
     const taskFormData = new FormData(event.currentTarget);
     taskFormValue.taskValue = taskFormData.get('task');
-    taskFormValue.titleId = listId;
+    // taskFormValue.titleId = listId;
     sendTask(taskFormValue);
   };
 
   const sendTask = (taskList) => {
     console.log(taskList);
-    axios.put( apiUrl, taskList)
+    axios.post( apiUrl, taskList)
     .then()
     .catch((error) => {
       console.log(error.response);

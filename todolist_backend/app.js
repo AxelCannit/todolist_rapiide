@@ -28,21 +28,12 @@ app.post('/api/list', (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 });
 
-app.put('api/list/:id', (req, res, next) => {
-  const titleId = req.body.titleId;
-  Todolist.findByIdAndUpdate({ _id: titleId }, {taskValue: req.body.taskValue} )
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+app.post('api/list/:id', (req, res, next) => {
+  Todolist.findByIdAndUpdate({ _id: req.params.id }, { tasks:{ ...req.body } } )
+    .then(() => res.status(200).json({ message: 'Objet enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 });
-// Todolist.findById(({ _id: titleId }, (err, Todolist) => {
-//   if(err){ res.send(err)};
-//   Object.assign(Todolist, req.body).save((err, Todolist) => {
-//     if(err) {res.send(err)};
-//     res.json({ message: "task updated!", Todolist});
-//   });
-// }))
-
-
+//findByIdAndUpdate
 app.use('/api/list', (req, res, next) => {
   Todolist.find()
     .then(todolists => res.status(200).json(todolists))
