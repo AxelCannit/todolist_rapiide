@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Trash2 } from 'react-feather';
 
 import './List.css';
 
@@ -23,7 +24,7 @@ function List({title, value, listId}) {
   const taskData = (event) => {
     const taskFormData = new FormData(event.currentTarget);
     taskFormValue.taskValue = taskFormData.get('task');
-    // taskFormValue.titleId = listId;
+    taskFormValue.titleId = listId;
     sendTask(taskFormValue);
   };
 
@@ -44,6 +45,19 @@ function List({title, value, listId}) {
     taskData(event);
   };
 
+  const deleteTask = (event) => {
+    const taskId = event.currentTarget.id;
+    axios.delete(apiUrl, taskId)
+    .then()
+    .catch((error) => {
+      console.log(error.response);
+    })
+    .finally(() => {
+      loadList();
+    });
+  };
+
+
   useEffect(() => {
     loadList();
   }, []);
@@ -63,9 +77,18 @@ function List({title, value, listId}) {
       </form>
       <div className="todo-container">
         {taskList.map((task) => {
-          return(
-            <div className="todo" key={task._id}>{task.taskValue}</div>
-          )
+          if(task.titleId === listId){
+            return(
+              <div className="todo" key={task._id} >
+                <div className="task-container">
+                  {task.taskValue}
+                </div>
+                <div className="trash-container">
+                  <Trash2 id={task._id} className="trash" onClick={deleteTask}/>
+                </div>
+              </div>
+            )
+          };
         })}
       </div>
     </div>
@@ -74,7 +97,6 @@ function List({title, value, listId}) {
 
   List.propTypes = {
     listId: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
     value: PropTypes.arrayOf(
       PropTypes.shape({
         _id: PropTypes.number.isRequired,

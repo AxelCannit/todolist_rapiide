@@ -5,6 +5,7 @@
   }
   
   .todo {
+    text-align: center;
     margin: auto;
     color:  #282c34;
     background-color: white;
@@ -13,5 +14,21 @@
     text-decoration: none;
     margin-bottom: 2rem;
     border: white 2px solid;
-    width: 50%;
+    min-width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .task-container {
+    margin-left: 1rem;
+  }
+
+  .trash-container {
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+
+  .trash-container:hover {
+    color: red;
   }

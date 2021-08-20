@@ -16,7 +16,6 @@ function App() {
     axios.get(apiUrl)
     .then((response) => {
       setTitleList(response.data);
-      console.log(response.data);
     })
     .catch((error) => {
       console.log(error);
@@ -73,9 +72,11 @@ function App() {
           </form>
           <div className="app-list">
           {titleList.map((titleName) => {
-             return(
-              <a className="list-title" key={titleName._id} href={`/liste-${titleName._id}`}>{titleName.title}</a>
-            )
+            if(titleName.title) {
+              return(
+                <a className="list-title" key={titleName._id} href={`/liste-${titleName._id}`}>{titleName.title}</a>
+              )
+             }
           })}
           </div>
         </Route>

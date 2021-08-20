@@ -24,16 +24,26 @@ app.post('/api/list', (req, res, next) => {
     ...req.body,
   });
   todolist.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    .then(() => res.status(201).json({message: 'Objet enregistré !'}))
     .catch(error => res.status(400).json({ error }));
 });
 
-app.post('api/list/:id', (req, res, next) => {
-  Todolist.findByIdAndUpdate({ _id: req.params.id }, { tasks:{ ...req.body } } )
-    .then(() => res.status(200).json({ message: 'Objet enregistré !'}))
+app.post('/api/list/:id', (req, res, next) => {
+  const todolist = new Todolist({
+    ...req.body,
+  });
+  todolist.save()
+    .then(() => res.status(201).json({message: 'Tâche enregistrée !'}))
+    .catch(error => res.status(400).json({error}));
+});
+
+app.delete('/api/list/:id', (req, res, next) => {
+  const taskId = req.body;
+  Todolist.remove({ _id: taskId })
+    .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
     .catch(error => res.status(400).json({ error }));
 });
-//findByIdAndUpdate
+
 app.use('/api/list', (req, res, next) => {
   Todolist.find()
     .then(todolists => res.status(200).json(todolists))
