@@ -38,8 +38,8 @@ app.post('/api/list/:id', (req, res, next) => {
 });
 
 app.delete('/api/list/:id', (req, res, next) => {
-  const taskId = req.body;
-  Todolist.remove({ _id: taskId })
+  const taskId = req.params.id;
+  Todolist.deleteOne({ _id: taskId })
     .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
     .catch(error => res.status(400).json({ error }));
 });

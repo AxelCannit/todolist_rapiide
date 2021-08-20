@@ -45,9 +45,9 @@ function List({title, value, listId}) {
     taskData(event);
   };
 
-  const deleteTask = (event) => {
+  const sendDelete = (event) => {
     const taskId = event.currentTarget.id;
-    axios.delete(apiUrl, taskId)
+    axios.delete(`http://localhost:8080/api/list/${taskId}`)
     .then()
     .catch((error) => {
       console.log(error.response);
@@ -56,7 +56,6 @@ function List({title, value, listId}) {
       loadList();
     });
   };
-
 
   useEffect(() => {
     loadList();
@@ -84,7 +83,7 @@ function List({title, value, listId}) {
                   {task.taskValue}
                 </div>
                 <div className="trash-container">
-                  <Trash2 id={task._id} className="trash" onClick={deleteTask}/>
+                  <Trash2 id={task._id} className="trash" onClick={sendDelete}/>
                 </div>
               </div>
             )
