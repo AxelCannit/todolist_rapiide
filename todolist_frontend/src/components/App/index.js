@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Route, Switch} from 'react-router-dom';
 import axios from 'axios';
+import { Trash2 } from 'react-feather';
 
 import List from '../List';
 
@@ -45,6 +46,19 @@ function App() {
     titleData(event);
   };
 
+  const deleteTodo = (event) => {
+    console.log(event.currentTarget.id);
+    const todoId = event.currentTarget.id;
+    axios.delete(`http://localhost:8080/api/list/${todoId}`)
+    .then()
+    .catch((error) => {
+      console.log(error.response);
+    })
+    .finally(() => {
+      loadList();
+    });
+  }
+
   useEffect(() => {
     loadList();
   }, []);
@@ -74,7 +88,10 @@ function App() {
           {titleList.map((titleName) => {
             if(titleName.title) {
               return(
-                <a className="list-title" key={titleName._id} href={`/liste-${titleName._id}`}>{titleName.title}</a>
+                <div className="todo-title">
+                  <a className="list-title" key={titleName._id} href={`/liste-${titleName._id}`}>{titleName.title}</a>
+                  <Trash2 id={titleName._id} className="trash" onClick={deleteTodo}/>
+                </div>
               )
              }
           })}

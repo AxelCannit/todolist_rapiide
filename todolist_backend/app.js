@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 app.post('/api/list', (req, res, next) => {
   const todolist = new Todolist({
     ...req.body,
+    titleId: "none",
   });
   todolist.save()
     .then(() => res.status(201).json({message: 'Objet enregistré !'}))
@@ -38,9 +39,13 @@ app.post('/api/list/:id', (req, res, next) => {
 });
 
 app.delete('/api/list/:id', (req, res, next) => {
-  const taskId = req.params.id;
-  Todolist.deleteOne({ _id: taskId })
-    .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+  const todoId = req.params.id;
+  Todolist.deleteOne({ _id: todoId })
+    .then(() => {
+      Todolist.deleteMany({ titleId: todoId })
+      .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+        .catch(error => res.status(400).json({ error }));
+    })
     .catch(error => res.status(400).json({ error }));
 });
 
